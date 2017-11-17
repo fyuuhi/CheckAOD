@@ -1,0 +1,50 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+MyAnalysisAlg	MyNewPackage/MyAnalysisAlg.h	/^class MyAnalysisAlg : public EL::Algorithm$/;"	c
+MyNewPackage_MyAnalysisAlg_H	MyNewPackage/MyAnalysisAlg.h	2;"	d
+m_L2SAPt	MyNewPackage/MyAnalysisAlg.h	/^  std::vector<Double_t>* m_L2SAPt; \/\/! $/;"	m	class:MyAnalysisAlg
+m_L2SA_e	MyNewPackage/MyAnalysisAlg.h	/^  std::vector<Double_t>* m_L2SA_e; \/\/!$/;"	m	class:MyAnalysisAlg
+m_L2SA_eta	MyNewPackage/MyAnalysisAlg.h	/^  std::vector<Double_t>* m_L2SA_eta; \/\/!$/;"	m	class:MyAnalysisAlg
+m_L2SA_m	MyNewPackage/MyAnalysisAlg.h	/^  std::vector<Double_t>* m_L2SA_m; \/\/!$/;"	m	class:MyAnalysisAlg
+m_L2SA_mass	MyNewPackage/MyAnalysisAlg.h	/^  std::vector<Double_t>* m_L2SA_mass; \/\/!$/;"	m	class:MyAnalysisAlg
+m_L2SA_p4	MyNewPackage/MyAnalysisAlg.h	/^  std::vector<Double_t>* m_L2SA_p4; \/\/!$/;"	m	class:MyAnalysisAlg
+m_L2SA_phi	MyNewPackage/MyAnalysisAlg.h	/^  std::vector<Double_t>* m_L2SA_phi; \/\/!$/;"	m	class:MyAnalysisAlg
+m_NegR	MyNewPackage/MyAnalysisAlg.h	/^  std::vector<Double_t>* m_NegR; \/\/!$/;"	m	class:MyAnalysisAlg
+m_PosR	MyNewPackage/MyAnalysisAlg.h	/^  std::vector<Double_t>* m_PosR; \/\/!$/;"	m	class:MyAnalysisAlg
+m_charge	MyNewPackage/MyAnalysisAlg.h	/^  std::vector<Double_t>* m_charge; \/\/!$/;"	m	class:MyAnalysisAlg
+m_charge_SA	MyNewPackage/MyAnalysisAlg.h	/^  std::vector<Double_t>* m_charge_SA; \/\/!$/;"	m	class:MyAnalysisAlg
+m_dimuon_mass	MyNewPackage/MyAnalysisAlg.h	/^  std::vector<Double_t>* m_dimuon_mass; \/\/!$/;"	m	class:MyAnalysisAlg
+m_etaMS	MyNewPackage/MyAnalysisAlg.h	/^  std::vector<Double_t>* m_etaMS; \/\/!$/;"	m	class:MyAnalysisAlg
+m_grl	MyNewPackage/MyAnalysisAlg.h	/^  GoodRunsListSelectionTool* m_grl; \/\/!$/;"	m	class:MyAnalysisAlg
+m_h1muonPt	MyNewPackage/MyAnalysisAlg.h	/^  TH1* m_h1muonPt; \/\/!$/;"	m	class:MyAnalysisAlg
+m_highPtNeg	MyNewPackage/MyAnalysisAlg.h	/^  std::vector<Double_t>* m_highPtNeg; \/\/! $/;"	m	class:MyAnalysisAlg
+m_highPtPos	MyNewPackage/MyAnalysisAlg.h	/^  std::vector<Double_t>* m_highPtPos; \/\/!$/;"	m	class:MyAnalysisAlg
+m_l2_R	MyNewPackage/MyAnalysisAlg.h	/^  std::vector<Double_t>* m_l2_R; \/\/!$/;"	m	class:MyAnalysisAlg
+m_l2_eta	MyNewPackage/MyAnalysisAlg.h	/^  std::vector<Double_t>* m_l2_eta; \/\/!$/;"	m	class:MyAnalysisAlg
+m_l2_phi	MyNewPackage/MyAnalysisAlg.h	/^  std::vector<Double_t>* m_l2_phi; \/\/!$/;"	m	class:MyAnalysisAlg
+m_l2_pt	MyNewPackage/MyAnalysisAlg.h	/^  std::vector<Double_t>* m_l2_pt; \/\/!$/;"	m	class:MyAnalysisAlg
+m_max_R	MyNewPackage/MyAnalysisAlg.h	/^  std::vector<Double_t>* m_max_R; \/\/!$/;"	m	class:MyAnalysisAlg
+m_min_R	MyNewPackage/MyAnalysisAlg.h	/^  std::vector<Double_t>* m_min_R; \/\/!$/;"	m	class:MyAnalysisAlg
+m_muonPt	MyNewPackage/MyAnalysisAlg.h	/^  std::vector<Double_t>* m_muonPt; \/\/! $/;"	m	class:MyAnalysisAlg
+m_muon_R	MyNewPackage/MyAnalysisAlg.h	/^  std::vector<Double_t>* m_muon_R; \/\/!$/;"	m	class:MyAnalysisAlg
+m_muon_e	MyNewPackage/MyAnalysisAlg.h	/^  std::vector<Double_t>* m_muon_e; \/\/!$/;"	m	class:MyAnalysisAlg
+m_muon_eta	MyNewPackage/MyAnalysisAlg.h	/^  std::vector<Double_t>* m_muon_eta; \/\/! $/;"	m	class:MyAnalysisAlg
+m_muon_phi	MyNewPackage/MyAnalysisAlg.h	/^  std::vector<Double_t>* m_muon_phi; \/\/!$/;"	m	class:MyAnalysisAlg
+m_muon_residual	MyNewPackage/MyAnalysisAlg.h	/^  std::vector<Double_t>* m_muon_residual; \/\/!$/;"	m	class:MyAnalysisAlg
+m_phiMS	MyNewPackage/MyAnalysisAlg.h	/^  std::vector<Double_t>* m_phiMS; \/\/!$/;"	m	class:MyAnalysisAlg
+m_ptBarrelRadius	MyNewPackage/MyAnalysisAlg.h	/^  std::vector<Double_t>* m_ptBarrelRadius; \/\/!$/;"	m	class:MyAnalysisAlg
+m_ptBarrelSagitta	MyNewPackage/MyAnalysisAlg.h	/^  std::vector<Double_t>* m_ptBarrelSagitta; \/\/!$/;"	m	class:MyAnalysisAlg
+m_ptCSC	MyNewPackage/MyAnalysisAlg.h	/^  std::vector<Double_t>* m_ptCSC; \/\/!$/;"	m	class:MyAnalysisAlg
+m_ptEndcapAlpha	MyNewPackage/MyAnalysisAlg.h	/^  std::vector<Double_t>* m_ptEndcapAlpha; \/\/!$/;"	m	class:MyAnalysisAlg
+m_ptEndcapBeta	MyNewPackage/MyAnalysisAlg.h	/^  std::vector<Double_t>* m_ptEndcapBeta; \/\/!$/;"	m	class:MyAnalysisAlg
+m_ptEndcapRadius	MyNewPackage/MyAnalysisAlg.h	/^  std::vector<Double_t>* m_ptEndcapRadius; \/\/!$/;"	m	class:MyAnalysisAlg
+m_quality	MyNewPackage/MyAnalysisAlg.h	/^  std::vector<Double_t>* m_quality; \/\/!$/;"	m	class:MyAnalysisAlg
+m_real_L2SAPt	MyNewPackage/MyAnalysisAlg.h	/^  std::vector<Double_t>* m_real_L2SAPt; \/\/! $/;"	m	class:MyAnalysisAlg
+m_real_muonPt	MyNewPackage/MyAnalysisAlg.h	/^  std::vector<Double_t>* m_real_muonPt; \/\/! $/;"	m	class:MyAnalysisAlg
+m_sAddress	MyNewPackage/MyAnalysisAlg.h	/^  std::vector<Double_t>* m_sAddress; \/\/!$/;"	m	class:MyAnalysisAlg
+m_tgcpt	MyNewPackage/MyAnalysisAlg.h	/^  std::vector<Double_t>* m_tgcpt; \/\/!$/;"	m	class:MyAnalysisAlg
+m_tree	MyNewPackage/MyAnalysisAlg.h	/^  TTree* m_tree; \/\/!$/;"	m	class:MyAnalysisAlg
