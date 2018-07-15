@@ -1,3 +1,3 @@
-#!/bin/sh
 setupATLAS
-lsetup 'rcsetup Base,2.4.32'
+lsetup rcsetup
+# https://twiki.cern.ch/twiki/bin/viewauth/Atlas/L2MuonSA#RootCore
