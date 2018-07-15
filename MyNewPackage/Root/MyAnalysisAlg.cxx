@@ -7,13 +7,23 @@
 #include "xAODRootAccess/Init.h"
 #include "xAODRootAccess/TEvent.h"
 #include "xAODMuon/MuonContainer.h"
+#include "xAODMuon/MuonSegmentContainer.h"
 #include "xAODTrigMuon/L2StandAloneMuonContainer.h"
 #include <TSystem.h>
 #include "GoodRunsLists/GoodRunsListSelectionTool.h"
 #include <TH1.h>
 #include <TTree.h>
 #include <cmath>
+
+using namespace std;
+
+//EDM include(s):
+#include "AthLinks/DataLink.h"
+#include "AthLinks/ElementLink.h"
+#include "AthLinks/ElementLinkVector.h"
+
 // this is needed to distribute the algorithm to the workers
+//
 
 //(http://epp.phys.kyushu-u.ac.jp/~oda/pukiwiki/index.php?xAOD%B2%F2%C0%CF2014#o027ed25) --->>> about invariant mass
 
@@ -58,98 +68,6 @@ EL::StatusCode MyAnalysisAlg :: histInitialize ()
 
   ///TTree
   m_tree = new TTree("tree", "tree");
-  m_muonPt = new std::vector< Double_t >;
-  m_real_muonPt = new std::vector< Double_t >;
-  m_L2SAPt = new std::vector< Double_t >;
-  m_real_L2SAPt = new std::vector< Double_t >;
-  m_muon_eta = new std::vector< Double_t >;
-  m_muon_phi = new std::vector< Double_t >;
-  m_muon_e = new std::vector< Double_t >;
-  m_muon_R = new std::vector<Double_t >;
-  m_PosR = new std::vector<Double_t >;
-  m_NegR = new std::vector<Double_t >;
-  m_muon_residual = new std::vector< Double_t >;
-  m_L2SA_eta = new std::vector< Double_t >;
-  m_L2SA_phi = new std::vector< Double_t >;
-  m_L2SA_e = new std::vector< Double_t >;
-  m_L2SA_m = new std::vector< Double_t >;
-  m_charge = new std::vector< Double_t >;
-  m_charge_SA = new std::vector< Double_t >;
-  m_dimuon_mass = new std::vector< Double_t >;
-  m_sAddress = new std::vector< Double_t>;
-  m_highPtPos = new std::vector< Double_t >;
-  m_highPtNeg = new std::vector< Double_t >;
-  m_etaMS = new std::vector< Double_t >;
-  m_phiMS = new std::vector< Double_t >;
-  m_quality = new std::vector< Double_t >;
-  //
-  m_tgcpt = new std::vector< Double_t >;
-  m_ptBarrelRadius = new std::vector< Double_t >;
-  m_ptBarrelSagitta = new std::vector< Double_t >;
-  m_ptEndcapAlpha = new std::vector< Double_t >;
-  m_ptEndcapBeta = new std::vector< Double_t >;
-  m_ptEndcapRadius = new std::vector< Double_t >;
-  m_ptCSC = new std::vector< Double_t >;
-  // 
-  m_max_R = new std::vector< Double_t >;
-  m_min_R = new std::vector< Double_t >;
-  m_L2SA_p4 = new std::vector< Double_t >;
-  m_L2SA_mass = new std::vector< Double_t >;
-
-
-  m_l2_eta = new std::vector<Double_t>;
-  m_l2_phi = new std::vector<Double_t>;
-  m_l2_R = new std::vector<Double_t>;
-  m_l2_pt = new std::vector<Double_t>;
-
-
-
-  m_tree -> Branch("muonPt",&m_muonPt);
-  m_tree -> Branch("real_muonPt",&m_real_muonPt);
-  m_tree -> Branch("L2SAPt",&m_L2SAPt);
-  m_tree -> Branch("real_L2SAPt",&m_real_L2SAPt);
-  m_tree -> Branch("muon_eta",&m_muon_eta);
-  m_tree -> Branch("muon_phi",&m_muon_phi);
-  m_tree -> Branch("muon_e",&m_muon_e);
-  m_tree -> Branch("muon_R",&m_muon_R);
-  m_tree -> Branch("PosR",&m_PosR);
-  m_tree -> Branch("NegR",&m_NegR);
-  m_tree -> Branch("muon_residual",&m_muon_residual);
-  m_tree -> Branch("L2SA_eta",&m_L2SA_eta); 
-  m_tree -> Branch("L2SA_phi",&m_L2SA_phi);
-  m_tree -> Branch("L2SA_e",&m_L2SA_e);
-  m_tree -> Branch("L2SA_m",&m_L2SA_m);
-  m_tree -> Branch("charge",&m_charge);
-  m_tree -> Branch("charge_SA",&m_charge_SA);
-  m_tree -> Branch("dimuon_mass",&m_dimuon_mass);
-  m_tree -> Branch("sAddress",&m_sAddress);
-  m_tree -> Branch("highPtPos",&m_highPtPos);
-  m_tree -> Branch("highPtNeg",&m_highPtNeg);
-  m_tree -> Branch("etaMS",&m_etaMS);
-  m_tree -> Branch("phiMS",&m_phiMS);
-  m_tree -> Branch("quality",&m_quality);
-  //
-  m_tree -> Branch("tgcpt",&m_tgcpt);
-  m_tree -> Branch("ptBarrelRadius",&m_ptBarrelRadius);
-  m_tree -> Branch("ptBarrelSagitta",&m_ptBarrelSagitta);
-  m_tree -> Branch("ptEndcapAlpha",&m_ptEndcapAlpha);
-  m_tree -> Branch("ptEndcapBeta",&m_ptEndcapBeta);
-  m_tree -> Branch("ptEndcapRadius",&m_ptEndcapRadius);
-  m_tree -> Branch("ptCSC",&m_ptCSC);
-  //
-
-  m_tree -> Branch("max_R",&m_max_R);
-  m_tree -> Branch("min_R",&m_min_R);
-  m_tree -> Branch("L2SA_p4",&m_L2SA_p4);
-  m_tree -> Branch("L2SA_mass",&m_L2SA_mass);
-
-  m_tree -> Branch("l2_eta",&m_l2_eta);
-  m_tree -> Branch("l2_phi",&m_l2_phi);
-  m_tree -> Branch("l2_pt",&m_l2_pt);
-  m_tree -> Branch("l2_R",&m_l2_R);
-
-
-
 
   wk() -> addOutput(m_tree);
   //histogram
@@ -172,6 +90,7 @@ EL::StatusCode MyAnalysisAlg :: fileExecute ()
 
 EL::StatusCode MyAnalysisAlg :: changeInput (bool firstFile)
 {
+  firstFile = 0;
   // Here you do everything you need to do when we change input files,
   // e.g. resetting branch addresses on trees.  If you are using
   // D3PDReader or a similar service this method is not needed.
@@ -185,11 +104,11 @@ EL::StatusCode MyAnalysisAlg :: initialize ()
   xAOD::TEvent* event = wk()->xaodEvent();
   Info("initialize()", "Number of events = %lli", event->getEntries() );
   m_grl = new GoodRunsListSelectionTool("GoodRunsListSelectionTool");
-  const char* GRLFilePath = "$ROOTCOREBIN/data/MyNewPackage/data16_13TeV.periodAllYear_DetStatus-v89-pro21-01_DQDefects-00-02-04_PHYS_StandardGRL_All_Good.xml"; 
-  const char* fullGRLFilePath = gSystem->ExpandPathName (GRLFilePath);
+  // const char* GRLFilePath = "$ROOTCOREBIN/data/MyNewPackage/data16_13TeV.periodAllYear_DetStatus-v89-pro21-01_DQDefects-00-02-04_PHYS_StandardGRL_All_Good.xml"; 
+  // const char* fullGRLFilePath = gSystem->ExpandPathName (GRLFilePath);
   std::vector<std::string> vecStringGRL;
-  vecStringGRL.push_back(fullGRLFilePath);
-  ANA_CHECK(m_grl->setProperty( "GoodRunsListVec", vecStringGRL));
+  // vecStringGRL.push_back(fullGRLFilePath);
+  // ANA_CHECK(m_grl->setProperty( "GoodRunsListVec", vecStringGRL));
   ANA_CHECK(m_grl->setProperty("PassThrough", false));
   ANA_CHECK(m_grl->initialize());
 
@@ -207,283 +126,105 @@ EL::StatusCode MyAnalysisAlg :: initialize ()
 
 EL::StatusCode MyAnalysisAlg :: execute ()
 {
-  m_muonPt -> clear();
-  m_real_muonPt -> clear();
-  m_L2SAPt -> clear();
-  m_real_L2SAPt -> clear();
-  m_muon_eta -> clear(); 
-  m_muon_phi -> clear();
-  m_muon_e -> clear();
-  m_muon_R -> clear();
-  m_PosR -> clear();
-  m_NegR -> clear();
-  m_muon_residual -> clear();
-  m_L2SA_eta -> clear(); 
-  m_L2SA_phi -> clear();
-  m_L2SA_e -> clear();
-  m_L2SA_m -> clear();
-  m_charge -> clear();
-  m_charge_SA -> clear();
-  m_dimuon_mass -> clear();
-  m_sAddress -> clear();
-  m_highPtPos -> clear();
-  m_highPtNeg -> clear();
-  m_etaMS -> clear();
-  m_phiMS -> clear();
-  m_quality -> clear();
-  //
-  m_tgcpt -> clear();
-  m_ptBarrelRadius -> clear();
-  m_ptBarrelSagitta -> clear();
-  m_ptEndcapAlpha -> clear();
-  m_ptEndcapBeta -> clear();
-  m_ptEndcapRadius -> clear();
-  m_ptCSC -> clear();
-  //
-  m_max_R -> clear();
-  m_min_R -> clear();
-  m_L2SA_p4 -> clear();
-  m_L2SA_mass -> clear();
-
-  m_l2_pt -> clear();
-  m_l2_R -> clear();
-  m_l2_eta -> clear();
-  m_l2_phi -> clear();
-
-
-
-
 
   xAOD::TEvent* event = wk()->xaodEvent();
   const xAOD::EventInfo* eventInfo = 0;
   ANA_CHECK(event->retrieve(eventInfo, "EventInfo"));
   int runNumber = eventInfo->runNumber();
   int eventNumber = eventInfo->eventNumber();
-  Info("execute()", "[[Run = %i]] :[[ Event = %i]]", runNumber, eventNumber);
+  int lumiBlock = eventInfo->lumiBlock();
+  int mu = eventInfo->averageInteractionsPerCrossing();
+  //Info("execute()", "[[Run = %i]] :[[ Event = %i]]", runNumber, eventNumber);
 
 
-  const xAOD::MuonContainer* muons = 0; //// Container for offline muon
-  ANA_CHECK( event -> retrieve( muons, "Muons") );
-  xAOD::MuonContainer::const_iterator muon_end = muons -> end();
-  for( xAOD::MuonContainer::const_iterator muon = muons -> begin() ; muon != muon_end; muon++ ) //// iterate over container
-    Info( "execute()", "Offline Muon Pt = %4.2f MeV", (*muon) -> pt() );
+  // const xAOD::MuonContainer* muons = 0; //// Container for offline muon
+  // ANA_CHECK( event -> retrieve( muons, "Muons") );
+  // xAOD::MuonContainer::const_iterator muon_end = muons -> end();
+  // for( xAOD::MuonContainer::const_iterator muon = muons -> begin() ; muon != muon_end; muon++ ) //// iterate over container
+  //   Info( "execute()", "Offline Muon Pt = %4.2f MeV", (*muon) -> pt() );
 
 
   const xAOD::L2StandAloneMuonContainer* l2saMuons = 0;
+  int iL2MuonSA = 0;
   ANA_CHECK( event -> retrieve( l2saMuons, "HLT_xAOD__L2StandAloneMuonContainer_MuonL2SAInfo" ) );
+  int nL2MuonSA = l2saMuons->size();
   for( auto l2saMuon : *l2saMuons ){ //// brief description
-    if ( l2saMuon -> algoId() != 1 ) continue; //// choose only muon algorithm id
-    Info( "execute()", "L2SA Muon Pt = %4.2f GeV", l2saMuon -> pt() ); //// be careful of GeV( not MeV as usual ) and sign of pt means charge
-  }
+    iL2MuonSA += 1;
+    //if ( l2saMuon -> algoId() != 1 ) continue; //// choose only muon algorithm id
+    cout << "" << endl;
+    cout << "EVENT INFO: " << Form("[Run = %i] :[Event = %i]:[LumiBlock = %i] :[<mu> = %d]: [ L2MuonSA = %i / %i ]", runNumber, eventNumber, lumiBlock, mu, iL2MuonSA, nL2MuonSA) << endl;
+    //Info( "execute()", "L2SA Muon Pt = %4.2f GeV", l2saMuon -> pt() );
 
-
-  //// Retrieve eventInfo above
-  bool isMC = false;
-  if ( eventInfo -> eventType( xAOD::EventInfo::IS_SIMULATION ) )
-    isMC = true;
-  if( !isMC ){
-    if( !m_grl -> passRunLB( *eventInfo ) ){ Info( "execute()", "GRL not pass RunLB"); return EL::StatusCode::SUCCESS;
-    } }
-
-  // Here you do everything that needs to be done on every single
-  // events, e.g. read input variables, apply cuts, and fill
-  // histograms and trees.  This is where most of your actual analysis
-  // code will go.
-  //const xAOD::MuonContainer* muons = 0;
-  //ANA_CHECK( event -> retrieve( muons, "Muons") ); 
-
-  const xAOD::Muon* highPtPosMuon = 0; // add (09/20) 
-  const xAOD::Muon* highPtNegMuon = 0; // add (09/20)  
-  const xAOD::Muon* real_muon = 0; // add (09/20) 
-  const xAOD::L2StandAloneMuonContainer* real_L2SA = 0; // add (09/20) 
-
-  std::vector<Double_t> m_Real;
-  std::vector<Double_t> m_L2_phi;
-  std::vector<Double_t> m_L2_eta;
-  std::vector<Double_t> m_L2_R;
-  std::vector<Double_t> m_L2_pt;
-  std::vector<Double_t> m_L2_sAddress;
-  std::vector<Double_t> m_L2_phiMS;
-  std::vector<Double_t> m_L2_etaMS;
-  //
-  std::vector<Double_t> m_L2_tgcpt;
-  std::vector<Double_t> m_L2_ptBarrelRadius;
-  std::vector<Double_t> m_L2_ptBarrelSagitta;
-  std::vector<Double_t> m_L2_ptEndcapAlpha;
-  std::vector<Double_t> m_L2_ptEndcapBeta;
-  std::vector<Double_t> m_L2_ptEndcapRadius;
-  std::vector<Double_t> m_L2_ptCSC;
-  //
-
-  Double_t min_1 = 999.;
-  Double_t min_2 = 9999.;
-
-
-  for( auto muon : *muons ) {//=========muon Loop starts==========
-
-    Info( "execute()", "--Offline Muon Pt = %4.2f MeV--", muon -> pt() ); //// Fill and push_back variables
-    m_h1muonPt -> Fill( muon -> pt() );
-
-    //real_muon = muon;
-    // m_real_muonPt -> push_back(real_muon -> pt() );
-    // m_muon_eta -> push_back( muon -> eta() );
-    // m_muon_phi -> push_back( muon -> phi() );
-    // m_muon_e -> push_back( muon -> e() );
-    // m_charge -> push_back( muon -> charge() );
-    // m_quality -> push_back( muon -> quality() );   
-
-    for( auto l2saMuon : *l2saMuons ){
-      //===================l2saMuon Loop starts (in muon Loop)===============
-
-      if(std::abs(l2saMuon -> pt()) > 0.  && std::abs(l2saMuon -> eta()) > 0. && std::abs(l2saMuon -> phi()) > 0. && std::abs(muon -> pt()) > 0. && std::abs(muon -> eta()) > 0.&& std::abs(muon -> phi()) > 0. ) {
-
-        m_L2_R.push_back( std::sqrt( std::pow( ( muon -> eta() - l2saMuon -> eta() ),2.0)+std::pow( ( muon -> phi() - l2saMuon -> phi() ),2.0)));
-        m_L2_eta.push_back(l2saMuon -> eta());
-        m_L2_phi.push_back(l2saMuon -> phi());
-        m_L2_pt.push_back(l2saMuon -> pt());
-        m_L2_sAddress.push_back(l2saMuon -> sAddress());
-        m_L2_phiMS.push_back(l2saMuon -> phiMS());
-        m_L2_etaMS.push_back(l2saMuon -> etaMS());
-        m_Real.push_back(muon -> pt());
-        //
-        m_L2_tgcpt.push_back(l2saMuon -> tgcPt());
-        m_L2_ptBarrelRadius.push_back(l2saMuon -> ptBarrelRadius());
-        m_L2_ptBarrelSagitta.push_back(l2saMuon -> ptBarrelSagitta());
-        m_L2_ptEndcapAlpha.push_back(l2saMuon -> ptEndcapAlpha());
-        m_L2_ptEndcapBeta.push_back(l2saMuon -> ptEndcapBeta());
-        m_L2_ptEndcapRadius.push_back(l2saMuon -> ptEndcapRadius());
-        m_L2_ptCSC.push_back(l2saMuon -> ptCSC());
-        //
-      }
+    // cout some variables
+    cout << "pt() =" << l2saMuon -> pt()
+      << ", eta() = " << l2saMuon -> eta()
+      << ", phi() = " << l2saMuon -> phi()
+      << endl;
+    // cout << "m() = "             << l2saMuon -> m()             << endl;
+    // cout << "e() = "             << l2saMuon -> e()             << endl;
+    // cout << "rapidity() = "      << l2saMuon -> rapidity()      << endl;
+    // cout << "roiWord() = "       << l2saMuon -> roiWord()       << endl;
+    cout << "sAddress() = "      << l2saMuon -> sAddress()      << endl;
+    // cout << "etaMS() = "         << l2saMuon -> etaMS()         << endl;
+    // cout << "phiMS() = "         << l2saMuon -> phiMS()         << endl;
+    // cout << "dirPhiMS() = "      << l2saMuon -> dirPhiMS()      << endl;
+    // cout << "rMS() = "           << l2saMuon -> rMS()           << endl;
+    // cout << "zMS() = "           << l2saMuon -> zMS()           << endl;
+    // cout << "beta() = "          << l2saMuon -> beta()          << endl;
+    // cout << "barrelRadius() = "  << l2saMuon -> barrelRadius()  << endl;
+    // cout << "barrelSagitta() = " << l2saMuon -> barrelSagitta() << endl;
+    // cout << "endcapAlpha() = "   << l2saMuon -> endcapAlpha()   << endl;
+    // cout << "endcapAlpha() = "   << l2saMuon -> endcapAlpha()   << endl;
+    // cout << "endcapBeta() = "    << l2saMuon -> endcapBeta()    << endl;
+    // cout << "endcapRadius() = "  << l2saMuon -> endcapRadius()  << endl;
+    // cout << "etaMap() = "        << l2saMuon -> etaMap()        << endl;
+    // cout << "phiMap() = "        << l2saMuon -> phiMap()        << endl;
+    // cout << "etaBin() = "        << l2saMuon -> etaBin()        << endl;
+    // cout << "phiBin() = "        << l2saMuon -> phiBin()        << endl;
+    cout << "isTgcFailure() = "  << l2saMuon -> isTgcFailure()  << endl;
+    cout << "isRpcFailure() = "  << l2saMuon -> isRpcFailure()  << endl;
+    // cout << "deltaPt() = "       << l2saMuon -> deltaPt()       << endl;
+    // cout << "deltaPtParm1() = "  << l2saMuon -> deltaPtParm1()  << endl;
+    // cout << "deltaPtParm2() = "  << l2saMuon -> deltaPtParm2()  << endl;
+    // cout << "deltaPtParm3() = "  << l2saMuon -> deltaPtParm3()  << endl;
+    // cout << "deltaEta() = "      << l2saMuon -> deltaEta()      << endl;
+    // cout << "deltaPhi() = "      << l2saMuon -> deltaPhi()      << endl;
+    for (int i_station = 0; i_station < 9; i_station++){
+      cout << "SP: station = " << i_station
+        << ", superPointR = " << l2saMuon -> superPointR(i_station)
+        << ", superPointZ = " << l2saMuon -> superPointZ(i_station)
+        << ", superPointSlope = " << l2saMuon -> superPointSlope(i_station)
+        << ", superPointIntercept = " << l2saMuon -> superPointIntercept(i_station)
+        << ", superPointChi2 = " << l2saMuon -> superPointChi2(i_station) << endl;
     }
-
-    int l2n = m_L2_R.size();
-    double m1 = 111111.0;
-
-    for(int i = 0;i < l2n; ++i){
-      if(m_L2_R.at(i) < m1){
-        m1 = m_L2_R.at(i);
-      }
+    cout << "roiEta() = " << l2saMuon -> roiEta() << endl;
+    cout << "roiPhi() = " << l2saMuon -> roiPhi() << endl;
+    for (int i_station = 0; i_station < 9; i_station++){
+      cout << "Road: station = " << i_station
+        << ", chamberType1 = " << l2saMuon -> chamberType1(i_station, 0)
+        << ", chamberType2 = " << l2saMuon -> chamberType2(i_station, 0)
+        << ", roadAw = " << l2saMuon -> roadAw(i_station, 0)
+        << ", roadBw = " << l2saMuon -> roadBw(i_station, 0)
+        << ", zMin = " << l2saMuon -> zMin(i_station, 0)
+        << ", zMax = " << l2saMuon -> zMax(i_station, 0)
+        << ", etaMin = " << l2saMuon -> etaMin(i_station, 0)
+        << ", etaMax = " << l2saMuon -> etaMax(i_station, 0) << endl;
     }
-
-    int l2m = 0.0;
-
-    for(int j =0;j < l2n; ++j){
-      if(m1 == m_L2_R.at(j)){
-        l2m = j;
-      }
-    }
-
-
-    if(m_L2_pt.size() > 0){
-      m_L2SAPt -> push_back(m_L2_pt.at(l2m));
-      if(m_L2_pt.at(l2m) > 0.0){
-        m_charge_SA -> push_back(1.0);
-      }else if(m_L2_pt.at(l2m) < 0.0){
-        m_charge_SA -> push_back(-1.0);
-      }
-      m_L2SA_phi -> push_back(m_L2_phi.at(l2m));
-      m_L2SA_eta -> push_back(m_L2_eta.at(l2m));
-      m_muon_R -> push_back(m_L2_R.at(l2m));
-      m_sAddress -> push_back(m_L2_sAddress.at(l2m));
-      m_etaMS -> push_back(m_L2_etaMS.at(l2m));
-      m_phiMS -> push_back(m_L2_phiMS.at(l2m));
-      //
-      m_tgcpt->push_back(m_L2_tgcpt.at(l2m));
-      m_ptBarrelRadius->push_back(m_L2_ptBarrelRadius.at(l2m));
-      m_ptBarrelSagitta->push_back(m_L2_ptBarrelSagitta.at(l2m));
-      m_ptEndcapAlpha->push_back(m_L2_ptEndcapAlpha.at(l2m));
-      m_ptEndcapBeta->push_back(m_L2_ptEndcapBeta.at(l2m));
-      m_ptEndcapRadius->push_back(m_L2_ptEndcapRadius.at(l2m));
-      m_ptCSC->push_back(m_L2_ptCSC.at(l2m));
-      //
-
-
-
-      m_muonPt -> push_back(muon -> pt());
-      m_muon_eta -> push_back(muon -> eta());
-      m_muon_phi -> push_back(muon -> phi());
-      m_quality -> push_back(muon -> quality());
-      m_charge -> push_back(muon -> charge());
-      m_muon_residual -> push_back(((1000.0/muon -> pt())-(1/std::abs(m_L2_pt.at(l2m))))/(1000.0/muon -> pt()));
-
-    }else {
-      m_L2SAPt -> push_back(9999.0);
-      m_charge_SA -> push_back(9999.0);
-      m_L2SA_phi -> push_back(9999.0);
-      m_L2SA_eta -> push_back(9999.0);
-      m_muon_R -> push_back(9999.0);
-      m_sAddress -> push_back(9999.0);
-      m_etaMS -> push_back(9999.0);
-      m_phiMS -> push_back(9999.0);
-
-      m_muonPt -> push_back(9999.0);
-      m_muon_eta -> push_back(9999.0);
-      m_muon_phi -> push_back(9999.0);
-      m_quality -> push_back(9999.0);
-      m_charge -> push_back(9999.0);
-      m_muon_residual -> push_back(9999.0);
-      //
-      m_tgcpt->push_back(9999.0);
-      m_ptBarrelRadius->push_back(9999.0);
-      m_ptBarrelSagitta->push_back(9999.0);
-      m_ptEndcapAlpha->push_back(9999.0);
-      m_ptEndcapBeta->push_back(9999.0);
-      m_ptEndcapRadius->push_back(9999.0);
-      m_ptCSC->push_back(9999.0);
-      //
-
-    }
-
-
-
-    std::vector<Double_t>().swap(m_L2_pt);
-    std::vector<Double_t>().swap(m_L2_phi);
-    std::vector<Double_t>().swap(m_L2_eta);
-    std::vector<Double_t>().swap(m_L2_R);
-    std::vector<Double_t>().swap(m_L2_sAddress);
-    std::vector<Double_t>().swap(m_L2_phiMS);
-    std::vector<Double_t>().swap(m_L2_etaMS);
-    //
-    std::vector<Double_t>().swap(m_L2_tgcpt);
-    std::vector<Double_t>().swap(m_L2_ptBarrelRadius);
-    std::vector<Double_t>().swap(m_L2_ptBarrelSagitta);
-    std::vector<Double_t>().swap(m_L2_ptEndcapAlpha);
-    std::vector<Double_t>().swap(m_L2_ptEndcapBeta);
-    std::vector<Double_t>().swap(m_L2_ptEndcapRadius);
-    std::vector<Double_t>().swap(m_L2_ptCSC);
-    //
-
-  }
-
-  int mn = m_muonPt -> size(); 
-  //double min_1 = 99999.0;
-
-  for(int k = 0;k < mn;++k){
-
-    for(int l = 0;l < mn;++l){
-      if(m_L2SAPt -> at(k) == m_L2SAPt -> at(l)){
-        if(m_muon_R -> at(k) < m_muon_R -> at(l)){
-          m_muon_R -> at(l) = m_muon_R -> at(l) + 10000.0; 
-        } 
-      }
+    cout << "nRpcHits = " << (l2saMuon->rpcHitX()).size() << endl;
+    cout << "nMdtHits = " << l2saMuon->nMdtHits() << endl;
+    for (uint32_t iMdtHit = 0; iMdtHit < l2saMuon->nMdtHits(); iMdtHit++){
+      cout << "Mdt[" << iMdtHit << "]"
+        << ", mdtHitIsOutlier = " << l2saMuon -> mdtHitIsOutlier(iMdtHit)
+        << ", mdtHitChamber = " << l2saMuon -> mdtHitChamber(iMdtHit)
+        << ", mdtHitR = " << l2saMuon -> mdtHitR(iMdtHit)
+        << ", mdtHitZ = " << l2saMuon -> mdtHitZ(iMdtHit)
+        << ", mdtHitPhi = " << l2saMuon -> mdtHitPhi(iMdtHit)
+        << ", mdtHitResidual = " << l2saMuon -> mdtHitResidual(iMdtHit)
+        << ", mdtHitTime = " << l2saMuon -> mdtHitTime(iMdtHit)
+        << ", mdtHitSpace = " << l2saMuon -> mdtHitSpace(iMdtHit)
+        << ", mdtHitSigma = " << l2saMuon -> mdtHitSigma(iMdtHit) << endl;
     }
   }
-
-
-  //m_l2_eta = new std::vector<Doube_t>;
-
-
-
-  m_real_muonPt -> push_back(m_Real.size());
-
-  //m_Real -> clear();
-
-
-
-
-  ////Fill tree
-  m_tree -> Fill();
 
   return EL::StatusCode::SUCCESS;
 }
@@ -502,159 +243,9 @@ EL::StatusCode MyAnalysisAlg :: postExecute ()
 
 EL::StatusCode MyAnalysisAlg :: finalize ()
 {
-  if(m_muonPt != 0) {
-    delete m_muonPt; m_muonPt = 0;
-  }
-
-  if(m_real_muonPt != 0) {
-    delete m_real_muonPt; m_real_muonPt = 0;
-  }
-
-  if(m_L2SAPt != 0) {
-    delete m_L2SAPt; m_L2SAPt = 0;
-  }
-
-  if(m_real_L2SAPt != 0) {
-    delete m_real_L2SAPt; m_real_L2SAPt = 0;
-  }
-
-  if(m_muon_eta != 0) {
-    delete m_muon_eta; m_muon_eta = 0;
-  } 
-
-  if(m_muon_phi != 0) {
-    delete m_muon_phi; m_muon_phi = 0;
-  }
-
-  if(m_muon_e != 0) {
-    delete m_muon_e; m_muon_e = 0; 
-  } 
-
-  if(m_muon_R != 0) {
-    delete m_muon_R; m_muon_R = 0;
-  }  
-
-  if(m_PosR != 0) {
-    delete m_PosR; m_PosR = 0;
-  } 
-
-  if(m_NegR != 0) {
-    delete m_NegR; m_NegR = 0;
-  }  
-
-  if(m_muon_residual != 0) {
-    delete m_muon_residual; m_muon_residual = 0;  
-  }
-
-
-  if(m_L2SA_eta != 0) {
-    delete m_L2SA_eta; m_L2SA_eta = 0; 
-  } 
-
-  if(m_L2SA_phi != 0) {
-    delete m_L2SA_phi; m_L2SA_phi = 0;
-  }
-
-  if(m_L2SA_e != 0) {
-    delete m_L2SA_e; m_L2SA_e = 0;           
-  }  
-
-  if(m_L2SA_m != 0) {
-    delete m_L2SA_m; m_L2SA_m= 0;                               
-  }  
-
-  if(m_charge != 0) {
-    delete m_charge; m_charge = 0;
-  }
-
-  if(m_charge_SA != 0) {
-    delete m_charge_SA; m_charge_SA = 0;
-  }
-
-  if(m_dimuon_mass != 0) {
-    delete m_dimuon_mass; m_dimuon_mass = 0;
-  }
-
-  if(m_sAddress != 0) {
-    delete m_sAddress; m_sAddress = 0; 
-  }
-
-  if(m_highPtPos != 0) {
-    delete m_highPtPos; m_highPtPos = 0;
-  }
-
-  if(m_highPtNeg != 0) {
-    delete m_highPtNeg; m_highPtNeg = 0;
-  }
-
-  if(m_etaMS != 0) {
-    delete m_etaMS ; m_etaMS = 0;
-  }
-
-  if(m_phiMS != 0) {
-    delete m_phiMS ; m_phiMS = 0;
-  }
-
-  //
-
-  if(m_tgcpt != 0) {
-    delete m_tgcpt ; m_tgcpt = 0;
-  }
-  if(m_ptBarrelRadius != 0) {
-    delete m_ptBarrelRadius ; m_ptBarrelRadius = 0;
-  }
-  if(m_ptBarrelSagitta != 0) {
-    delete m_ptBarrelSagitta ; m_ptBarrelSagitta = 0;
-  }
-  if(m_ptEndcapAlpha != 0) {
-    delete m_ptEndcapAlpha ; m_ptEndcapAlpha = 0;
-  }
-  if(m_ptEndcapBeta != 0) {
-    delete m_ptEndcapBeta ; m_ptEndcapBeta = 0;
-  }
-  if(m_ptEndcapRadius != 0) {
-    delete m_ptEndcapRadius ; m_ptEndcapRadius = 0;
-  }
-  if(m_ptCSC != 0) {
-    delete m_ptCSC ; m_ptCSC = 0;
-  }
-  //
-  if(m_quality != 0) {
-    delete m_quality ; m_quality = 0;
-  }
-
-  if(m_max_R != 0) {
-    delete m_max_R ; m_max_R = 0;
-  }
-
-  if(m_min_R != 0) {
-    delete m_min_R ; m_min_R = 0;
-  }
-
-  if(m_L2SA_mass != 0) {
-    delete m_L2SA_mass ; m_L2SA_mass = 0;
-  }
-
-  if(m_L2SA_p4 != 0) {
-    delete m_L2SA_p4 ; m_L2SA_p4 = 0;
-  }
-
-  if(m_l2_pt != 0) {
-    delete m_L2SA_p4 ; m_L2SA_p4 = 0;
-  }
-
-  if(m_l2_R != 0) {
-    delete m_l2_R ; m_l2_R = 0;
-  }
-
-  if(m_l2_eta != 0) {
-    delete m_l2_eta ; m_l2_eta = 0;
-  }
-
-  if(m_l2_phi != 0) {
-    delete m_l2_phi ; m_l2_phi = 0;
-  }
-
+  cout << "" << endl;
+  cout << "MyAnalysisAlg::finalize()" << endl;
+  cout << "" << endl;
   // This method is the mirror image of initialize(), meaning it gets
   // called after the last event has been processed on the worker node
   // and allows you to finish up any objects you created in
