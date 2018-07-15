@@ -1,4 +1,4 @@
-void TestRun (const int nEvents, const std::string& submitDir,const std::string& strInputFNDir,const std::string& DateDir)
+void TestRun (const int nEvents, const std::string& submitDir,const TString strInputFNDir,const std::string& strFilePattern)
 {
   cout << "TestRun" << endl;
   //Set up the job for xAOD access:
@@ -6,11 +6,13 @@ void TestRun (const int nEvents, const std::string& submitDir,const std::string&
   // create a new sample handler to describe the data files we use
   SH::SampleHandler sh;
   // use SampleHandler to scan all of the subdirectories of a directory for particular MC single file:
-  // const char* inputFilePath = gSystem->ExpandPathName (strInputFNDir);
-  const char* inputFilePath = gSystem->ExpandPathName ("/gpfs/fs2001/yfukuhar/data/youhei_Zmumu_AOD/Zmumu_noRpcHitWide/DIR_noRpcHitWide_user.yfukuhar.14514992.EXT0._000001.RDO.pool.root/");
+  const char* inputFilePath = gSystem->ExpandPathName (strInputFNDir);
+  // const char* inputFilePath = gSystem->ExpandPathName ("/gpfs/fs2001/yfukuhar/data/youhei_Zmumu_AOD/Zmumu_noRpcHitWide/DIR_noRpcHitWide_user.yfukuhar.14514992.EXT0._000001.RDO.pool.root/");
+  // const char* inputFilePath = gSystem->ExpandPathName ("/gpfs/fs2001/yfukuhar/data/youhei_Zmumu_AOD/Zmumu_noRpcHit/DIR_noRpcHit_user.yfukuhar.14514992.EXT0._000001.RDO.pool.root/");
   //SH::ScanDir().filePattern("AOD.*.*.pool.root.1").scan(sh,inputFilePath);
+  // SH::ScanDir().filePattern("AOD.*.root").scan(sh,inputFilePath);
   cout << "Scan File" << endl;
-  SH::ScanDir().filePattern("AOD.*.root").scan(sh,inputFilePath);
+  SH::ScanDir().filePattern(strFilePattern).scan(sh,inputFilePath);
   cout <<  "SH::ScanDir().filePattern(strInputFNDir.c_str()).scan(sh,inputFilePath)" << endl;
   // set the name of the tree in our files
   // in the xAOD the TTree containing the EDM containers is "CollectionTree"
